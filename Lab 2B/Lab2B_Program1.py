@@ -4,7 +4,7 @@
 #
 # Name:         Jodhvir Singh
 # Section:      550
-# Assignment:   Lab 1B
+# Assignment:   Lab 2B
 # Date:         26 August 2026
 
 
@@ -23,15 +23,15 @@ print(voltage)
 
 mass = 100
 velocity_squared = 21**2
-one_half = .5
+one_half = 0.5
 kinetic_energy = one_half * mass * velocity_squared
 print(kinetic_energy)
 
 
 velocity = 100
-kine_viscosity = 1.2
-linear_dimen = 2.5
-reynolds_number = (velocity * linear_dimen)/kine_viscosity
+kinematic_viscosity = 1.2
+linear_dimension = 2.5
+reynolds_number = (velocity * linear_dimension) / kinematic_viscosity
 print(reynolds_number)
 
 

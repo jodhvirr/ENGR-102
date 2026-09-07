@@ -4,7 +4,7 @@
 #
 # Name:         Jodhvir Singh
 # Section:      550
-# Assignment:   Lab 1B
+# Assignment:   Lab 2B
 # Date:         26 August 2026
 
 initial_time = 13
