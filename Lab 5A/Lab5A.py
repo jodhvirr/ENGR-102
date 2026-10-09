@@ -7,7 +7,7 @@
 #               Rayyan Dulvi
 #               Vraj Desai
 # Section:      550
-# Assignment:   Lafb 5A
+# Assignment:   Lab 5A
 # Date:         23 September 2026
 
 # Construct the variables and ask the user for input
@@ -22,14 +22,14 @@ total_cholesterol = float(input("What is the total cholesterol inside your body?
 
     
 
-# if the major risk factors is greater than or equal to 2
-# use the risk scoring table to determine your risk score
+# The total points will be used to add together the points
+# from age, total cholesterol, smoking, HDL, and blood pressure
 points = 0
 risk_percent = ""
 
     
 if gender.lower() == "m":
-    #Check age and add/subtract points
+    # Determine age points based on the person's age
     if age >= 20 and age <= 34:
         points -= 9
     elif age >= 35 and age <= 39:
@@ -50,7 +50,8 @@ if gender.lower() == "m":
         points += 12
     elif age >= 75 and age <= 79:
         points += 13
-    # check the age and total cholesterol and add/substract points based on the chart
+
+    # Determine total cholesterol points based on age and cholesterol level
     if age >= 20 and age <= 39:
         if total_cholesterol < 160:
             points += 0
@@ -113,7 +114,7 @@ if gender.lower() == "m":
 
         
             
-    # Check if the person smokes and check their age to see how many points get added/subtracted
+    # Determine smoking points based on smoking status and age
     if isSmoker.lower() == "n":
         points += 0
     
@@ -130,6 +131,7 @@ if gender.lower() == "m":
         elif age >= 70 and age <= 79:
             points += 1                
     
+    # Determine HDL points based on the person's HDL cholesterol level
     if hdl >= 60:
         points -= 1
     elif hdl >= 50 and hdl <= 59:
@@ -139,6 +141,8 @@ if gender.lower() == "m":
     elif hdl < 40:
         points += 2
     
+    # Determine blood pressure points based on systolic blood pressure
+    # and whether the person's blood pressure is being treated
     if(is_bp_Treated.lower() == "n"):
         if systolic_bp < 120:
             points += 0
@@ -163,6 +167,7 @@ if gender.lower() == "m":
         elif systolic_bp >= 160:
             points += 3
     
+    # Convert the total Framingham points into the estimated 10-year risk
     if points < 0:
         risk_percent = "<1%"
     elif points < 5:
@@ -195,8 +200,10 @@ if gender.lower() == "m":
         
 
 # ---------------------------------------------------------------------------------
-# If the gender is female test the cases on the chart
+# If the gender is female, use the female Framingham point tables
 elif gender.lower() == "f":
+    
+    # Determine age points based on the person's age
     if age >= 20 and age <= 34:
         points -= 7
     elif age >= 35 and age <= 39:
@@ -218,6 +225,7 @@ elif gender.lower() == "f":
     elif age >= 75 and age <= 79:
         points += 16
 
+    # Determine total cholesterol points based on age and cholesterol level
     if age >= 20 and age <= 39:
         if total_cholesterol < 160:
             points += 0
@@ -278,7 +286,7 @@ elif gender.lower() == "f":
         elif(total_cholesterol >= 280):
             points += 2
             
-    # Check if the person smokes and check their age to see how many points get added/subtracted
+    # Determine smoking points based on smoking status and age
     if isSmoker.lower() == "n":
         points += 0
     
@@ -295,6 +303,7 @@ elif gender.lower() == "f":
         elif age >= 70 and age <= 79:
             points += 1
     
+    # Determine HDL points based on the person's HDL cholesterol level
     if hdl >= 60:
         points -= 1
     elif hdl >= 50 and hdl <= 59:
@@ -304,6 +313,8 @@ elif gender.lower() == "f":
     elif hdl < 40:
         points += 2
 
+    # Determine blood pressure points based on systolic blood pressure
+    # and whether the person's blood pressure is being treated
     if(is_bp_Treated.lower() == "n"):
         if systolic_bp < 120:
             points += 0
@@ -328,6 +339,7 @@ elif gender.lower() == "f":
         elif systolic_bp >= 160:
             points += 6
             
+    # Convert the total Framingham points into the estimated 10-year risk
     if points < 9:
         risk_percent = "<1%"
     elif points <= 12:
@@ -359,8 +371,10 @@ elif gender.lower() == "f":
  
 
  
+# Display the final total points and estimated 10-year risk
 print()
 print("Your total Framingham points are:", points)
 print("Your estimated 10-year heart attack risk is:", risk_percent)
+
 
             
