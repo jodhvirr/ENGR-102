@@ -11,44 +11,49 @@
 
 
 f = input("Enter the name of the file: ")
+count = 0
 
-
-with open(f) as file:  
+outfile = open("valid_barcodes.txt", "w")
+               
+with open(f, "r") as file:  
     for line in file:
-        barcode = file.readLine()
-        first_group = []
-        second_group = []
+        barcode = line.strip()
         
-        for digit in barcode[::2]:
-            number = int(digit)
-            first_group.append(number)
+        if len(barcode) == 13:
+            first_group = []
+            second_group = []
         
-        for digit in barcode[1::2]:
-            number = int(digit)
-            second_group.append(number)
+            for digit in barcode[0:12:2]:
+                first_group.append(int(digit))
         
-        sum1 = 0
-        for s in second_group:
-           sum1 += int(s)
+            for digit in barcode[1:12:2]:
+                second_group.append(int(digit))
+        
+            sum1 = 0
+            for s in second_group:
+                sum1 += int(s)
            
-        sum1 *= 3
+            sum1 *= 3
         
-        sum2 = 0
+            sum2 = 0
         
-        for s in first_group:
-            sum2 += int(s)
+            for s in first_group:
+                sum2 += int(s)
         
-        sum3 = sum2 + sum1
-        final_num = sum3 - 10
+            sum3 = sum2 + sum1
         
-        count = 0
-        if final_num == int(barcode[12:13]):
-            count += 1
+            last_digit = int(str(sum3)[-1])
+            final_num = 10 - last_digit
+
         
+        
+            if final_num == int(barcode[12:13]):
+                count += 1
+                outfile.write(barcode + "\n")
 print(f"There are {count} valid barcodes.")
         
         
-        
+outfile.close()   
         
         
         
