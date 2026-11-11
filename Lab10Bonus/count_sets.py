@@ -29,7 +29,7 @@ def count_sets(num):
 
 
 
-                
+print(count_sets(10))
                 
                 
         
