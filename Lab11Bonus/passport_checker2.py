@@ -8,89 +8,93 @@
 # Date:         10 November 2026
 
 
-def is_valid(passport): 
-    list = passport.split()
+def is_valid(passport):
+    pairs = passport.split()
     my_dict = {}
-    
-    for i in range(len(list)):
-        list2 = list[i].split(":")
-        my_dict[list2[0]] = list2[1]
-    
-    isValid = True
-    
-    
-    hgt1 = my_dict["hgt"][:-2]
-    if hgt1.isdigit():
-        hgt = int(hgt1)    
+
+    for pair in pairs:
+        parts = pair.split(":")
+        if len(parts) == 2:
+            my_dict[parts[0]] = parts[1]
+
+    # all required fields present (ecl is optional)
+    required = ["byr", "iyr", "eyr", "hgt", "hcl", "pid", "cid"]
+    for r in required:
+        if r not in my_dict:
+            return False
+
+    # byr
+    byr = my_dict["byr"]
+    if not (len(byr) == 4 and byr.isdigit()):
+        return False
+    if not (1920 <= int(byr) <= 2007):
+        return False
+
+    # iyr
+    iyr = my_dict["iyr"]
+    if not (len(iyr) == 4 and iyr.isdigit()):
+        return False
+    if not (2013 <= int(iyr) <= 2023):
+        return False
+
+    # eyr
+    eyr = my_dict["eyr"]
+    if not (len(eyr) == 4 and eyr.isdigit()):
+        return False
+    if not (2023 <= int(eyr) <= 2033):
+        return False
+
+    # hgt
+    hgt_num = my_dict["hgt"][:-2]
     units = my_dict["hgt"][-2:]
-    
-    
-    if not (1920 <= int(my_dict["byr"]) <= 2007):
-        isValid = False
-        
-    if not (2013 <= int(my_dict["iyr"]) <= 2023):
-        isValid = False
-        
-    if not (2023 <= int(my_dict["eyr"]) <= 2033):
-        isValid = False
-        
-    if not ((units == "in" and 59 <= hgt <= 76) or (units == "cm" and 150 <= hgt <= 193)):
-        isValid = False
-    
-    
+    if not hgt_num.isdigit():
+        return False
+    hgt = int(hgt_num)
+    if units == "cm":
+        if not (150 <= hgt <= 193):
+            return False
+    elif units == "in":
+        if not (59 <= hgt <= 76):
+            return False
+    else:
+        return False
+
+    # hcl
     hcl = my_dict["hcl"]
     if not (len(hcl) == 7 and hcl[0] == "#"):
-        isValid = False
-        
-    characters = "1234567890abcdef"
-    
-    if len(hcl) == 7:
-        for j in range(1,7):
-            if not (hcl[j] in characters):
-                isValid = False
-    
+        return False
+    characters = "0123456789abcdef"
+    for j in range(1, 7):
+        if hcl[j] not in characters:
+            return False
+
+    # pid
     pid = my_dict["pid"]
     if not (len(pid) == 9 and pid.isdigit()):
-        isValid = False
-        
+        return False
+
+    # cid
     cid = my_dict["cid"]
-
     if not (len(cid) == 3 and cid.isdigit() and cid[0] != "0"):
-        isValid = False
+        return False
 
-    return isValid;
-
+    return True
 
 
 file_name = input("Enter the name of the file: ")
-passport = ""
-required = ["byr:", "iyr:", "eyr:", "hgt:", "hcl:", "pid:", "cid:"]
 count = 0
 outfile = open("valid_passports2.txt", "w")
-
 
 with open(file_name, "r") as file:
     data = file.read()
     passports = data.strip().split("\n\n")
-    
-    
-    
+
     for i in range(len(passports)):
-        isValid = True
-        for r in required:
-            if r not in passports[i]:
-                isValid = False
-    
-        if isValid:
-            isValid = is_valid(passports[i])
-            
-        if isValid:
+        if is_valid(passports[i]):
             if count > 0:
                 outfile.write("\n\n")
-            count += 1    
+            count += 1
             outfile.write(passports[i])
-       
-              
+
 print("There are", count, "valid passports")
 outfile.close()
-
