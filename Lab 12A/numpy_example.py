@@ -29,4 +29,11 @@ d_t = d.T
 
 e = (np.sqrt(d)) / (2)
 
+print("A =", a, "\n")
+print("B =", b, "\n")
+print("C =", c, "\n")
+print("D =", d, "\n")
+print("D^T =", d_t, "\n")
+print("E =", e, "\n")
+
 
